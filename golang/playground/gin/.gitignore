@@ -1,0 +1,25 @@
+# Binary files, such as the executable produced by "go build"
+/bin
+
+# Dependency directories
+/vendor
+/Godeps
+
+# IDE files (GoLand, VSCode, etc.)
+.idea
+*.iml
+.vscode
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Test cache
+/testdata/
+
+# Go build output
+*.out
+
+# Configuration files
+/config/*.yaml
+/config/*.json
