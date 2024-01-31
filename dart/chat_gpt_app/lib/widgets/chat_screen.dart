@@ -5,6 +5,7 @@ import 'package:app/states/message_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:markdown_widget/config/all.dart';
 
 class ChatScreen extends HookConsumerWidget {
   const ChatScreen({super.key});
@@ -50,12 +51,26 @@ class MessageItem extends StatelessWidget {
           width: 8,
         ),
         Flexible(
-          child: Padding(
-            padding: const EdgeInsets.only(top: 10),
-            child: Text(message.content),
+          child: Container(
+            margin: const EdgeInsets.only(right: 48),
+            child: MessageContent(message: message),
           ),
         ),
       ],
+    );
+  }
+}
+
+class MessageContent extends StatelessWidget {
+  const MessageContent({super.key, required this.message});
+
+  final Message message;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: MarkdownGenerator().buildWidgets(message.content),
     );
   }
 }
