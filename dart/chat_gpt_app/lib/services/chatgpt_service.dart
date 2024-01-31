@@ -1,4 +1,5 @@
 import 'package:app/env.dart';
+import 'package:app/services/injection.dart';
 import 'package:openai_api/openai_api.dart';
 
 class ChatGPTService {
@@ -18,5 +19,36 @@ class ChatGPTService {
       )
     ]);
     return await client.sendChatCompletion(request);
+  }
+
+  Future streamChat(
+    String content, {
+    Function(String text)? onSuccess,
+    Function()? onError,
+  }) async {
+    if (onSuccess == null) return;
+
+    final request =
+        ChatCompletionRequest(model: 'gpt-3.5-turbo', stream: true, messages: [
+      ChatMessage(
+        content: content,
+        role: ChatMessageRole.user,
+      ),
+    ]);
+
+    try {
+      return await client.sendChatCompletionStream(
+        request,
+        onSuccess: (p0) {
+          final text = p0.choices.first.delta?.content;
+          if (text != null) {
+            onSuccess.call(text);
+          }
+        },
+      );
+    } catch (err) {
+      onError?.call();
+      logger.e('requestChatGPT error: $err');
+    }
   }
 }
