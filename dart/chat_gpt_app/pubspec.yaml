@@ -1,4 +1,4 @@
-name: dart
+name: app
 description: chat gpt 聊天 app
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
@@ -35,6 +35,10 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
+  hooks_riverpod: ^2.3.2
+  openai_api: ^0.3.6
+  envied: ^0.3.0+3
+  logger: ^2.0.2+1
 
 dev_dependencies:
   flutter_test:
@@ -46,6 +50,8 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
+  envied_generator: ^0.3.0+3
+  build_runner: ^2.4.8
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

@@ -1,29 +1,42 @@
+import 'package:app/models/message.dart';
+import 'package:app/services/injection.dart';
+import 'package:app/states/chat_ui_state.dart';
+import 'package:app/states/message_state.dart';
+import 'package:app/utils/logger.dart';
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../models/message.dart';
-
-class ChatScreen extends StatelessWidget {
+class ChatScreen extends HookConsumerWidget {
   const ChatScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final List<Message> messages = [
-      Message(content: "Hello", isUser: true, timestamp: DateTime.now()),
-      Message(
-          content: "How are you?", isUser: false, timestamp: DateTime.now()),
-      Message(
-          content: "Fine,Thank you. And you?",
-          isUser: true,
-          timestamp: DateTime.now()),
-      Message(content: "I am fine.", isUser: false, timestamp: DateTime.now()),
-    ];
-
+  Widget build(BuildContext context, WidgetRef ref) {
+    final messages = ref.watch(messageListProvider);
+    final chatUiState = ref.watch(chatUiProvider);
     final textController = TextEditingController();
 
-    sendMessage(String content) {
+    requestChatGPT() async {
+      ref.read(chatUiProvider.notifier).setRequestLoading(true);
+
+      try {
+        final res = await chatgpt.sendChat(textController.text);
+        final text = res.choices.first.message?.content ?? "";
+        final message =
+            Message(content: text, isUser: false, timestamp: DateTime.now());
+        ref.read(messageListProvider.notifier).addMessage(message);
+      } catch (err) {
+        logger.e("requestChatGPT error: $err");
+      } finally {
+        ref.read(chatUiProvider.notifier).setRequestLoading(false);
+      }
+    }
+
+    sendMessage() {
+      var text = textController.text;
       final message =
-          Message(content: content, isUser: true, timestamp: DateTime.now());
-      messages.add(message);
+          Message(content: text, isUser: true, timestamp: DateTime.now());
+      ref.read(messageListProvider.notifier).addMessage(message);
+      requestChatGPT();
       textController.clear();
     }
 
@@ -44,15 +57,12 @@ class ChatScreen extends StatelessWidget {
               ),
             ),
             TextField(
+              enabled: !chatUiState.requestLoading,
               controller: textController,
               decoration: InputDecoration(
                 hintText: 'Type a message',
                 suffixIcon: IconButton(
-                  onPressed: () {
-                    if (textController.text.isNotEmpty) {
-                      sendMessage(textController.text);
-                    }
-                  },
+                  onPressed: sendMessage,
                   icon: const Icon(
                     Icons.send,
                   ),
@@ -74,6 +84,7 @@ class MessageItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         CircleAvatar(
           backgroundColor: message.isUser ? Colors.blue : Colors.grey,
@@ -83,7 +94,12 @@ class MessageItem extends StatelessWidget {
         const SizedBox(
           width: 8,
         ),
-        Text(message.content),
+        Flexible(
+          child: Padding(
+            padding: const EdgeInsets.only(top: 8),
+            child: Text(message.content),
+          ),
+        ),
       ],
     );
   }
