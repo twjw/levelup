@@ -1,3 +1,4 @@
+import 'package:app/markdown/latex.dart';
 import 'package:app/models/message.dart';
 import 'package:app/services/injection.dart';
 import 'package:app/states/chat_ui_state.dart';
@@ -70,7 +71,14 @@ class MessageContent extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: MarkdownGenerator().buildWidgets(message.content),
+      children: MarkdownGenerator(
+        generators: [
+          latexGenerator,
+        ],
+        inlineSyntaxList: [
+          LatexSyntax(),
+        ],
+      ).buildWidgets(message.content),
     );
   }
 }
