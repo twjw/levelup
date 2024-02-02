@@ -1,5 +1,9 @@
 import 'package:floor/floor.dart';
+import 'package:copy_with_extension/copy_with_extension.dart';
 
+part 'message.g.dart';
+
+@CopyWith()
 @entity
 class Message {
   @primaryKey
@@ -13,20 +17,4 @@ class Message {
       required this.content,
       required this.isUser,
       required this.timestamp});
-}
-
-extension MessageExtension on Message {
-  Message copyWith({
-    String? id,
-    String? content,
-    bool? isUser,
-    DateTime? timestamp,
-  }) {
-    return Message(
-      id: id ?? this.id,
-      content: content ?? this.content,
-      isUser: isUser ?? this.isUser,
-      timestamp: timestamp ?? this.timestamp,
-    );
-  }
 }
