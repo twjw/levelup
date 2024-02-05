@@ -50,6 +50,10 @@
   content: '前台';
 }
 
+.wrap > .right > .right-title > .text::after {
+  content: '原型說明';
+}
+
 .wrap > .right > .right-title > .next {
   color: rgba(0,0,0,0.6);
 }
