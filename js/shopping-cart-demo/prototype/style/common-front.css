@@ -1,0 +1,86 @@
+.wrap {
+  display: flex;
+  margin: 0 auto;
+  width: 1125px;
+  max-width: 100%;
+  height: 750px;
+  max-height: 100%;
+  padding: 24px;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  overflow: hidden;
+  border-radius: 12px;
+  background: #fff;
+}
+
+.wrap > .left,
+.wrap > .right {
+  height: 100%;
+}
+
+.wrap > .left {
+  width: 375px;
+  border-right: 1px solid rgba(0,0,0,0.1);
+}
+
+.wrap > .right {
+  flex: 1;
+  padding: 0 12px;
+  display: flex;
+  flex-direction: column;
+}
+
+.wrap > .right > .right-title {
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+  margin-bottom: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.wrap > .right > .right-title > .text {
+  font-size: 24px;
+  line-height: 1.5;
+  font-weight: bold;
+}
+
+.wrap > .right > .right-title > .text::before {
+  content: '前台';
+}
+
+.wrap > .right > .right-title > .next {
+  color: rgba(0,0,0,0.6);
+}
+
+.wrap > .right > .right-title > .next::after {
+  content: ' >';
+}
+
+.wrap > .right > .right-content {
+  flex: 1;
+  overflow: auto;
+}
+
+.wrap > .right > .right-footer {
+  margin-top: 12px;
+}
+
+.wrap > .right > .right-footer > .links {
+  font-size: 14px;
+}
+
+.wrap > .right > .right-footer > .links::before {
+  content: '網站地圖: ';
+  color: rgba(0,0,0,0.8);
+}
+
+.wrap > .right > .right-footer > .links > a {
+  color: blue;
+  margin: 0 0 8px;
+}
+
+.wrap > .right > .right-footer > .links > a.current {
+  color: rgba(0,0,0,0.6);
+}
