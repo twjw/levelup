@@ -139,7 +139,11 @@ class UserInput extends HookConsumerWidget {
   sendMessage(WidgetRef ref, TextEditingController controller) {
     var text = controller.text;
     final message = Message(
-        id: uuid.v4(), content: text, isUser: true, timestamp: DateTime.now());
+        id: uuid.v4(),
+        content: text,
+        isUser: true,
+        timestamp: DateTime.now(),
+        sessionId: 1);
     ref.read(messageListProvider.notifier).addMessage(message);
     requestChatGPT(ref, controller);
     controller.clear();
@@ -155,6 +159,7 @@ class UserInput extends HookConsumerWidget {
         content: text,
         isUser: false,
         timestamp: DateTime.now(),
+        sessionId: 1,
       );
       ref.read(messageListProvider.notifier).upsertMessage(message);
       ref.read(chatUiProvider.notifier).setRequestLoading(false);

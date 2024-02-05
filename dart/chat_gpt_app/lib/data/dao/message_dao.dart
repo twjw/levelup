@@ -3,10 +3,10 @@ import 'package:app/models/message.dart';
 
 @dao
 abstract class MessageDao {
-  @Query('select * from Message')
+  @Query('SELECT * FROM message')
   Future<List<Message>> findAllMessages();
 
-  @Query('select * from Message where id = :id')
+  @Query('SELECT * FROM message WHERE id = :id')
   Future<Message?> findMessagesById(String id);
 
   @Insert(onConflict: OnConflictStrategy.replace)
@@ -14,4 +14,7 @@ abstract class MessageDao {
 
   @delete
   Future<void> deleteMessage(Message message);
+
+  @Query('SELECT * FROM message WHERE session_id = :sessionId')
+  Future<List<Message>> findMessagesBySessionId(int sessionId);
 }

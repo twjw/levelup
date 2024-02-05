@@ -4,7 +4,7 @@ import 'package:floor/floor.dart';
 part 'session.g.dart';
 
 @CopyWith()
-@entity
+@Entity(tableName: 'session')
 class Session {
   @PrimaryKey(autoGenerate: true)
   final int? id;
