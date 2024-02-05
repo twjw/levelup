@@ -1,0 +1,12 @@
+html, body {
+  background-color: rgba(0, 0, 0, 0.05);
+  height: 100%;
+}
+
+* {
+  font-family: 微軟正黑體;
+}
+
+a {
+  text-decoration: none;
+}
