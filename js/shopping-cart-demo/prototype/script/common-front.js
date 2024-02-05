@@ -11,7 +11,7 @@ layout.innerHTML = `
   <div class="right">
     <div class="right-title">
       <div class="text">${filename}</div>
-      <a class="next" href="${filenames[nextFilenameIdx]}.html">${filenames[nextFilenameIdx]}</a>
+      <a class="next" href="${filenames[nextFilenameIdx]}.html">${filenames[nextFilenameIdx]}<span class="material-symbols-outlined">chevron_right</span></a>
     </div>
     <div class="right-content">
     </div>

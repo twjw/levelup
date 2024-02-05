@@ -56,10 +56,9 @@
 
 .wrap > .right > .right-title > .next {
   color: rgba(0,0,0,0.6);
-}
-
-.wrap > .right > .right-title > .next::after {
-  content: ' >';
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
 }
 
 .wrap > .right > .right-content {
