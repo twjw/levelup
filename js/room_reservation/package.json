@@ -2,23 +2,33 @@
   "name": "room_reservation",
   "version": "1.0.0",
   "description": "",
+  "type": "module",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "tsx ./main.ts"
+    "start": "tsx src/main.ts",
+    "build": "tsx cli/build.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "devDependencies": {
-    "@types/node": "^20.11.16",
-    "tsup": "^8.0.1",
-    "tsx": "^4.7.0",
-    "typescript": "^5.3.3"
-  },
   "dependencies": {
     "@fastify/type-provider-typebox": "^4.0.0",
+    "@libsql/client": "^0.4.3",
     "@sinclair/typebox": "^0.32.13",
-    "fastify": "^4.26.0"
+    "drizzle-orm": "^0.29.3",
+    "fastify": "^4.26.0",
+    "pino-pretty": "^10.3.1"
+  },
+  "devDependencies": {
+    "@tsconfig/node-lts": "^20.1.1",
+    "@types/node": "^20.11.16",
+    "drizzle-kit": "^0.20.14",
+    "esbuild": "^0.20.0",
+    "esbuild-node-externals": "^1.12.0",
+    "esbuild-plugin-pino": "^2.1.0",
+    "tiny-glob": "^0.2.9",
+    "tsx": "^4.7.1",
+    "typescript": "^5.3.3"
   }
 }
